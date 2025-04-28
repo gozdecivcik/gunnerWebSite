@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GUNNER BROTHERS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" 
+        integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        body {
+            margin: 0;
+            font-family:'Poppins', sans-serif;
+            background-color: #e6e6e6;
+            padding-bottom: 60px;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            background-color: #1c0505;
+            overflow: auto;
+        }
+
+        .navbar a {
+            flex: 1;
+            padding: 15px;
+            color: #e6e6e6;
+            text-decoration: none;
+            font-size: 17px;
+            text-align: center;
+            transition: background-color 0.5s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .navbar i {
+            margin-right: 10px; 
+        }
+
+        .navbar a:hover {
+            background-color: #a39f9f;
+            color: #1c0505;
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+            }
+            .navbar a {
+                width: 100%;
+                padding: 10px;
+            }
+        }
+
+        .image1 {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 400px;
+            height: 400px;
+            border: none;
+            margin-top: 0%;
+        }
+
+        .puzzle-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            gap: 10px;
+            justify-content: center;
+            margin: 20px;
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .puzzle-piece {
+            position: relative;
+            overflow: hidden;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            padding-bottom: 100%;
+            padding-top: 50%;  
+        }
+
+        .puzzle-piece img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: scale-down; 
+            transition: transform 0.3s ease;
+        }
+
+        .puzzle-piece:hover img {
+            transform: scale(1.05); 
+        }
+
+        .title {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .puzzle-piece:hover .title {
+            opacity: 1;
+        }
+
+        
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            padding-top: 60px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.9);
+        }
+
+        .modal-content {
+            position: relative;
+            margin: auto;
+            padding: 0;
+            width: 80%;
+            max-width: 1200px;
+        }
+
+        .modal-images {
+            display: flex;
+            overflow: hidden;
+        }
+
+        .modal-image {
+            display: none;
+            width: 100%;
+            max-height: 80vh;
+            object-fit: contain;
+        }
+
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #fff;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #bbb;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .prev, .next {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            width: auto;
+            padding: 16px;
+            margin-top: -50px;
+            color: white;
+            font-weight: bold;
+            font-size: 20px;
+            transition: 0.6s ease;
+            border-radius: 0 3px 3px 0;
+            user-select: none;
+        }
+
+        .next {
+            right: 0;
+            border-radius: 3px 0 0 3px;
+        }
+
+        .prev:hover, .next:hover {
+            background-color: rgba(0,0,0,0.8);
+        }
+
+        .footer {
+            background-color: #1c0505;
+            color: #e6e6e6;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            font-size: 14px;
+            left: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="gunner.html"><i class="fa-solid fa-camera-retro"></i>Portfolio</a>
+        <a href="about.html"><i class="fa-regular fa-circle-user"></i>About Us</a>
+        <a href="contact.html"><i class="fa-regular fa-address-book"></i>Contact</a>
+    </div>
+
+    <img src="photos/GunnerLogo.png" alt="GUNNER" class="image1">
+    
+    <div class="puzzle-container">
+        <div class="puzzle-piece" onclick="openModal(0)">
+            <img src="photos/1/G_0546 kopya.jpg" alt="1">
+            <div class="title"></div>
+        </div>
+        <div class="puzzle-piece" onclick="openModal(1)">
+            <img src="photos/2/1 (1).jpg" alt="2">
+            <div class="title"></div>
+        </div>
+        <div class="puzzle-piece" onclick="openModal(2)">
+            <img src="photos/3/4 (1) copy.jpg" alt="3">
+            <div class="title"></div>
+        </div>
+        <div class="puzzle-piece" onclick="openModal(3)">
+            <img src="photos/4/P_1098.jpg" alt="4">
+            <div class="title"></div>
+        </div>
+        <div class="puzzle-piece" onclick="openModal(4)">
+            <img src="photos/5/3 (1).jpeg" alt="5">
+            <div class="title"></div>
+        </div>
+        <div class="puzzle-piece" onclick="openModal(5)">
+            <img src="photos/6/Çinli Kız Final2.jpg" alt="6">
+            <div class="title"></div>
+        </div>
+        <div class="puzzle-piece" onclick="openModal(6)">
+            <img src="photos/7/Berfuğ kar final 1.jpg" alt="7">
+            <div class="title"></div>
+        </div>
+        <div class="puzzle-piece" onclick="openModal(7)">
+            <img src="photos/8/S_ 202.jpg" alt="8">
+            <div class="title"></div>
+        </div>
+        <div class="puzzle-piece" onclick="openModal(8)">
+            <img src="photos/9/image00001.jpeg" alt="9">
+            <div class="title"></div>
+        </div>
+        <div class="puzzle-piece" onclick="openModal(9)">
+            <img src="photos/10/final 3.jpg" alt="10">
+            <div class="title"></div>
+        </div>
+        <div class="puzzle-piece" onclick="openModal(10)">
+            <img src="photos/11/_P2A8350 copy.jpg" alt="11">
+            <div class="title"></div>
+        </div>
+       
+    </div>
+
+    
+    <div id="modal" class="modal">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <div class="modal-content">
+            <div class="modal-images"></div>
+            <a class="prev" onclick="changeSlide(-1)">&#10094;</a>
+            <a class="next" onclick="changeSlide(1)">&#10095;</a>
+        </div>
+    </div>
+
+    <script>
+        var currentSlideIndex = 0;
+        var modal = document.getElementById("modal");
+        var modalContent = modal.querySelector(".modal-images");
+
+        function openModal(clusterIndex) {
+            var images = [
+                ["photos/1/4.jpg",
+"photos/1/5.jpg",
+"photos/1/6.jpg",
+"photos/1/7.jpg",
+"photos/1/611son kopya.jpg",
+"photos/1/G_0424 son.jpg",
+"photos/1/G_0546 kopya.jpg",
+"photos/1/insta.jpg",
+"photos/1/Son.jpg"],
+
+                ["photos/2/1 (1).jpg",
+"photos/2/1 (2).jpg",
+"photos/2/1 (3).jpg",
+"photos/2/1 (4).jpg",
+"photos/2/1jpeg.jpg",
+"photos/2/2 (1).jpg",
+"photos/2/2 (3).jpg",
+"photos/2/3jpeg.jpg"],
+                 
+                ["photos/3/4 (1) copy.jpg",
+"photos/3/4 (2) copy.jpg",
+"photos/3/final.jpg"],
+
+                ["photos/4/P_1098.jpg",
+"photos/4/P_1099.jpg",
+"photos/4/P_1101.jpg",
+"photos/4/P_1109.jpg",
+"photos/4/P_1110.jpg",
+"photos/4/P_1114.jpg",
+"photos/4/P_1121.jpg",
+"photos/4/P_1126.jpg",
+"photos/4/P_1149.jpg"],
+
+                ["photos/5/3 (1).jpeg",
+"photos/5/3 (1).jpg",
+"photos/5/3 (2).jpeg",
+"photos/5/3 (2).jpg"
+],
+
+["photos/6/Çinli Kız Final2.jpg"
+],
+
+[
+"photos/7/Berfuğ kar final 1.jpg",
+"photos/7/berfuğ kar final 3.jpg",
+"photos/7/Berfuğ kar final sonn.jpg",
+"photos/7/berfuğ karr final 2 revize.jpg",
+"photos/7/final 2.jpg",
+"photos/7/final.jpg",
+"photos/7/finalll.jpg"
+],
+
+["photos/8/S_ 202.jpg",
+"photos/8/S_ 286.jpg",
+"photos/8/S_ 438.jpg",
+"photos/8/S_ 453.jpg",
+"photos/8/S_ 474.jpg",
+"photos/8/S_ 552.jpg",
+"photos/8/S_ 561.jpg",
+"photos/8/S_ 571.jpg",
+"photos/8/S_ 574.jpg",
+"photos/8/S_ 620.jpg"
+],
+
+["photos/9/image00001.jpeg",
+"photos/9/image00002.jpeg",
+"photos/9/image00003.jpeg",
+"photos/9/image00004.jpeg",
+"photos/9/image00005.jpeg",
+"photos/9/image00006.jpeg",
+"photos/9/image00007.jpeg",
+"photos/9/image00008.jpeg",
+"photos/9/image00009.jpeg",
+"photos/9/image00010.jpeg",
+"photos/9/image00011.jpeg",
+"photos/9/image00012.jpeg",
+"photos/9/image00001.jpeg"
+],
+
+["photos/10/final 3.jpg",
+"photos/10/final.jpg",
+"photos/10/son paylaşım.jpg"
+],
+
+["photos/11/_P2A8350 copy.jpg",
+"photos/11/_P2A8354 copy 2.jpg",
+"photos/11/_P2A8357 copy.jpg",
+"photos/11/Portfolyo_0451_BEL_ SON.jpg",
+"photos/11/Portfolyo_0522 copy.jpg"
+
+],
+            ];
+
+            // Clear previous images from modal
+            modalContent.innerHTML = "";
+
+            // Dynamically create image elements for the selected cluster
+            images[clusterIndex].forEach(function(src) {
+                var img = document.createElement("img");
+                img.src = src;
+                img.classList.add("modal-image");
+                modalContent.appendChild(img);
+            });
+
+            // Reset slide index
+            currentSlideIndex = 0;
+            showSlide(currentSlideIndex);
+
+            modal.style.display = "block";  // Display the modal
+        }
+
+        function closeModal() {
+            modal.style.display = "none";  // Hide the modal
+        }
+
+        function showSlide(slideIndex) {
+            var slides = document.querySelectorAll(".modal-image");
+            slides.forEach(function(slide, index) {
+                slide.style.display = (index === slideIndex) ? 'block' : 'none';
+            });
+        }
+
+        function changeSlide(n) {
+            var slides = document.querySelectorAll(".modal-image");
+            currentSlideIndex = (currentSlideIndex + n + slides.length) % slides.length;
+            showSlide(currentSlideIndex);
+        }
+
+        
+        document.addEventListener("keydown", function(event) {
+            if (modal.style.display === "block") {
+                if (event.key === "ArrowRight") {
+                    changeSlide(1);
+                } else if (event.key === "ArrowLeft") {
+                    changeSlide(-1);
+                }
+            }
+        });
+
+        // Close modal on outside click
+        window.addEventListener("click", function(event) {
+            if (event.target === modal) {
+                closeModal();
+            }
+        });
+    </script>
+
+    <div class="footer">
+        <p>&copy; 2024 Gunner Brothers Photography. All rights reserved.</p>
+    </div>
+</body>
+</html>
